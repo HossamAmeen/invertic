@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         factory('App\Models\Inquiry',50)->create();
         factory('App\Models\Brand',10)->create();
         factory('App\Models\Module',50)->create();
-        // factory('App\Models\Department',50)->create();
+        factory('App\Models\Article',50)->create();
         // factory('App\Models\Event',50)->create();
         }
 }

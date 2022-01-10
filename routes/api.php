@@ -29,6 +29,7 @@ Route::middleware('cors')->group(function () {
                 Route::resource('modules' , "ModuleController");
                 Route::resource('products' , "ProductController");
                 Route::resource('inquiries' , "InquiryController");
+                Route::resource('articles' , "ArticleController");
                
         });
                 ////////////////////////////// website //////////////////////////////

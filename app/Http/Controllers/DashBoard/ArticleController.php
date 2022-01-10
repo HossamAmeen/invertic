@@ -4,17 +4,13 @@ namespace App\Http\Controllers\DashBoard;
 use App\Http\Controllers\APIResponseTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Brand};
+use App\Models\{Article};
 
-class BrandController extends CRUDController
+class ArticleController extends CRUDController
 {
      use APIResponseTrait;
-    public function __construct(Brand $model)
+    public function __construct(Article $model)
     {
         $this->model = $model;
-    }
-    public function with()
-    {
-        return ['modules'];
     }
 }
