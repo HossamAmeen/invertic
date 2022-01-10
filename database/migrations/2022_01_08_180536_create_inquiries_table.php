@@ -18,7 +18,8 @@ class CreateInquiriesTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->text('address');
-            
+            $table->string('status')->nullable();
+
             $table->bigInteger('product_id')->unsigned()->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
 

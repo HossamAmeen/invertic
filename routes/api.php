@@ -29,12 +29,13 @@ Route::middleware('cors')->group(function () {
                 Route::resource('modules' , "ModuleController");
                 Route::resource('products' , "ProductController");
                 Route::resource('inquiries' , "InquiryController");
-                Route::resource('articles' , "ArticleController");
+                // Route::resource('articles' , "ArticleController");
+                Route::resource('articles' , "EssayController");
                
         });
                 ////////////////////////////// website //////////////////////////////
                 Route::post('request', 'HomeController@request');
-                Route::get('teamwork', 'HomeController@teamwork');
+                Route::get('brands', 'HomeController@brands');
                 Route::get('articles/{id?}', 'HomeController@articles');
                 Route::get('courses', 'HomeController@courses');
                 Route::get('departments', 'HomeController@departments');

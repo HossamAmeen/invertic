@@ -4,17 +4,13 @@ namespace App\Http\Controllers\DashBoard;
 use App\Http\Controllers\APIResponseTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Inquiry};
+use App\Models\{Article};
 
-class InquiryController extends CRUDController
+class EssayController extends CRUDController
 {
      use APIResponseTrait;
-    public function __construct(Inquiry $model)
+    public function __construct(Article $model)
     {
         $this->model = $model;
-    }
-    public function with()
-    {
-        return ['product'];
     }
 }

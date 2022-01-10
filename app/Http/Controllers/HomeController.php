@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\APIResponseTrait;
-use App\Models\{Inquiry,Article,Department,Configration ,Event, Complaint , Team};
+use App\Models\{Inquiry,Article,Department,Configration ,Brand, Complaint , Team};
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,11 +27,12 @@ class HomeController extends Controller
 
      public function request(Request $request)
      {
-         
+        Inquiry::create($request->all());
+        return $this->APIResponse(null, null, 200);
      }
-    public function events()
+    public function brands()
     {
-        $data = Event::orderBy('id', 'DESC')->get();
+        $data = Brand::with('modules')->orderBy('id', 'DESC')->get();
         return $this->APIResponse($data, null, 200);
     }
     public function articles($id = null )
