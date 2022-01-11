@@ -17,4 +17,11 @@ class InquiryController extends CRUDController
     {
         return ['product'];
     }
+    public function filter($row)
+    {
+        if(request('date')!=null){
+            $row=$row->whereDate('created_at' , request('date'));
+        }
+        return $row;
+    }
 }

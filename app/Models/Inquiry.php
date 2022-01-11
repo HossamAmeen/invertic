@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Inquiry extends Model
 {
      use SoftDeletes;
-      protected $fillable = ['name','address','phone','product_id' ];
+      protected $fillable = ['name','address','phone','status','product_id'  ];
      protected $hidden = [
-         'user_id',"created_at" , 'updated_at','deleted_at' 
+         'user_id' , 'updated_at','deleted_at' 
     ];
     public function user(){
         return $this->belongsTo(User::class);
