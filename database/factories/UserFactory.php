@@ -87,7 +87,9 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
         'micanthim'=> $faker->name,
         'shape'=> $faker->name,
         'characteristic'=> $faker->name,
-        'guarantee'=> $faker->name
+        'guarantee'=> $faker->name,
+        'brand_id' =>  rand(1,9) ,
+        'module_id' =>  rand(1,9) ,
     ];
 });
 

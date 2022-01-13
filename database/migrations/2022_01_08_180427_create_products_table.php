@@ -31,6 +31,12 @@ class CreateProductsTable extends Migration
             $table->string('characteristic')->nullable();
             $table->string('guarantee')->nullable();
 
+            $table->bigInteger('brand_id')->unsigned()->nullable();
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
+
+            $table->bigInteger('module_id')->unsigned()->nullable();
+            $table->foreign('module_id')->references('id')->on('modules')->onDelete('set null');
+
             $table->timestamps();
             $table->softDeletes();
         });

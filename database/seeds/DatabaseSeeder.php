@@ -34,11 +34,13 @@ class DatabaseSeeder extends Seeder
             "video"=>"https://www.youtube.com",
             "video2"=>"https://www.youtube.com"
         ]);
-        factory('App\Models\Product',50)->create();
+      
         
-        factory('App\Models\Inquiry',50)->create();
+        
         factory('App\Models\Brand',10)->create();
         factory('App\Models\Module',50)->create();
+        factory('App\Models\Product',50)->create();
+        factory('App\Models\Inquiry',50)->create();
         factory('App\Models\Article',50)->create();
         factory('App\Models\Offer',20)->create();
         // factory('App\Models\Event',50)->create();

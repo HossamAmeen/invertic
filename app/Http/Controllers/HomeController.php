@@ -57,9 +57,13 @@ class HomeController extends Controller
         }
         else
         {
-            $data = Product::with('offer')->orderBy('id', 'DESC')->get();
+            $data = Product::with('offer')->orderBy('id', 'DESC');
+            $data = $this->filter($data);
+            // return $data->get() ;
+            $data = $data->get();
+            return $this->APIResponse($data, null, 200);
         }
-       
+        return $data->get() ;
         return $this->APIResponse($data, null, 200);
     }
     public function configrations()
@@ -80,5 +84,50 @@ class HomeController extends Controller
         ]);
         return $this->APIResponse(null, null, 200);
     }
+    public function filter($row)
+    {
 
+        if(request('color') != null){
+         $row =$row->where('color' ,'like','%'. request('color').'%');
+        }
+        if(request('type') != null){
+            $row =$row->where('type' ,'like','%'. request('type').'%');
+           }
+        if(request('capacity') != null){
+         $row =$row->where('capacity' ,'like','%'. request('capacity').'%');
+        }
+        if(request('control') != null){
+            $row =$row->where('control' ,'like','%'. request('control').'%');
+           }
+        if(request('technology') != null){
+         $row =$row->where('technology' ,'like','%'. request('technology').'%');
+        }
+        if(request('micanthim') != null){
+            $row =$row->where('micanthim' ,'like','%'. request('micanthim').'%');
+        }
+        if(request('shape') != null){
+            $row =$row->where('shape' ,'like','%'. request('shape').'%');
+        }
+        if(request('characteristic') != null){
+            $row =$row->where('characteristic' ,'like','%'. request('characteristic').'%');
+        }
+        
+        if(request('guarantee') != null){
+            $row =$row->where('guarantee' ,'like','%'. request('guarantee').'%');
+        }
+
+        if(request('min_price') != null){
+            $row =$row->where('price' ,'>=', request('min_price'));
+        }
+        if(request('max_price') != null){
+            $row =$row->where('price' ,'<=', request('max_price'));
+        }
+        if(request('brand_id') != null){
+            $row =$row->where('brand_id' ,request('brand_id'));
+        }
+        if(request('module_id') != null){
+            $row =$row->where('module_id' , request('module_id'));
+        }
+        return $row;
+    }
 }
