@@ -75,10 +75,31 @@ $factory->define(App\Models\Module::class, function (Faker $faker) {
 $factory->define(App\Models\Product::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-      
+        'en_name'=> $faker->name,
+        'image'=> "product.jpg",
+        'price'=> rand(10000,20000),
+        'color'=> $faker->name,
+        'description'=>$faker->text,
+        'type'=> $faker->name,
+        'capacity'=> $faker->name,
+        'control'=> $faker->name,
+        'technology'=> $faker->name,
+        'micanthim'=> $faker->name,
+        'shape'=> $faker->name,
+        'characteristic'=> $faker->name,
+        'guarantee'=> $faker->name
     ];
 });
 
+$factory->define(App\Models\Offer::class, function (Faker $faker) {
+    return [
+        'title' => $faker->name,
+        'image' => "offer.jpg",
+        'price' => rand(10000,20000),
+        'discount'=>rand(1,99),
+        'product_id' =>  rand(1,9) ,
+    ];
+});
 
 
 $factory->define(App\Models\Article::class, function (Faker $faker) {

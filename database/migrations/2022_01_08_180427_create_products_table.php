@@ -15,7 +15,22 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name'); 
+            $table->string('en_name'); 
+            $table->string('image');
+            $table->double('price');
+            $table->string('color');
+            $table->string('type');
+            $table->string('description');
+            
+            $table->string('capacity')->nullable();
+            $table->string('control')->nullable();
+            $table->string('technology')->nullable();
+            $table->string('micanthim')->nullable();
+            $table->string('shape')->nullable();
+            $table->string('characteristic')->nullable();
+            $table->string('guarantee')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

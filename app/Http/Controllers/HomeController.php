@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\APIResponseTrait;
-use App\Models\{Inquiry,Article,Department,Configration ,Brand, Complaint , Team};
+use App\Models\{Inquiry,Article,Product,Configration ,Brand, Complaint , Team};
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -46,24 +46,25 @@ class HomeController extends Controller
         }
         return $this->APIResponse($data, null, 200);
     }
-    public function departments()
+    public function products($product_id = null)
     {
-        $data = Department::orderBy('id', 'DESC')->get();
+        if($product_id != null)
+        {
+            $data = Product::with('offer')->find($product_id);
+            if(!isset($data)){
+                return $this->APIResponse(null, "هذا المنتج غير موجود", 404);
+            }
+        }
+        else
+        {
+            $data = Product::with('offer')->orderBy('id', 'DESC')->get();
+        }
+       
         return $this->APIResponse($data, null, 200);
     }
-    public function courses()
-    {
-        $data = Course::orderBy('id', 'DESC')->get();
-        return $this->APIResponse($data, null, 200);
-    }
-    public function home()
+    public function configrations()
     {
         $data = Configration::first();
-        return $this->APIResponse($data, null, 200);
-    }
-    public function teamwork()
-    {
-        $data = Team::orderBy('id', 'DESC')->get();
         return $this->APIResponse($data, null, 200);
     }
     public function complaint(Request $request)
@@ -79,9 +80,5 @@ class HomeController extends Controller
         ]);
         return $this->APIResponse(null, null, 200);
     }
-    public function conditions()
-    {
-        $configration = Configration::find(1);
-        return view('condition' , compact('configration'));
-    }
+
 }
