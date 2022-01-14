@@ -38,6 +38,7 @@ Route::middleware('cors')->group(function () {
                 Route::get('brands', 'HomeController@brands');
                 Route::get('articles/{id?}', 'HomeController@articles');
                 Route::get('products/{id?}', 'HomeController@products');
+                Route::get('products/offers', 'HomeController@offers');
                 Route::get('configrations', 'HomeController@configrations');
 });
 

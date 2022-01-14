@@ -15,7 +15,7 @@ class InquiryController extends CRUDController
     }
     public function with()
     {
-        return ['product'];
+        return ['product.offer'];
     }
     public function filter($row)
     {

@@ -46,6 +46,7 @@ class HomeController extends Controller
         }
         return $this->APIResponse($data, null, 200);
     }
+
     public function products($product_id = null)
     {
         if($product_id != null)
@@ -54,6 +55,7 @@ class HomeController extends Controller
             if(!isset($data)){
                 return $this->APIResponse(null, "هذا المنتج غير موجود", 404);
             }
+            
         }
         else
         {
@@ -63,7 +65,7 @@ class HomeController extends Controller
             $data = $data->get();
             return $this->APIResponse($data, null, 200);
         }
-        return $data->get() ;
+       
         return $this->APIResponse($data, null, 200);
     }
     public function configrations()
