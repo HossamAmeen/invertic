@@ -123,9 +123,9 @@ class HomeController extends Controller
                 $row =$row->WhereHas('offer', function($q)
                 {
                 
-                    $q->whereBetween('price', [request('min_price') ,  request('min_price')] );
+                    $q->whereBetween('price', [request('min_price') ,  request('max_price')] );
                 });
-                $row =$row->orWhereBetween('price', [request('min_price') ,  request('min_price')] );
+                $row =$row->orWhereBetween('price', [request('min_price') ,  request('max_price')] );
 
         }
         
@@ -150,6 +150,7 @@ class HomeController extends Controller
 
             // $row =$row->where('price' ,'<=', request('max_price'));
         }
+
         if(request('brand_id') != null){
             $row =$row->where('brand_id' ,request('brand_id'));
         }
