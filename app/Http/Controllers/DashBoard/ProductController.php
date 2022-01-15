@@ -4,7 +4,7 @@ namespace App\Http\Controllers\DashBoard;
 use App\Http\Controllers\APIResponseTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Product,Offer};
+use App\Models\{Product,Offer,Inquiry};
 
 class ProductController extends CRUDController
 {
@@ -75,5 +75,9 @@ class ProductController extends CRUDController
     {
         return ['offer'];
     }
-
+    public function deleteRelatedItems($id)
+    {
+        Inquiry::where('product_id' , $id)->delete();
+        Offer::where('product_id' , $id)->delete();
+    }
 }

@@ -52,7 +52,7 @@ $factory->define(App\Models\Inquiry::class, function (Faker $faker) {
         'name' => $faker->name,
         'phone' =>  $faker->regexify('09[0-9]{9}') ,
         'address' => $faker->sentence,
-        'product_id' => rand(1,49)
+        'product_id' => rand(1,2)
     ];
 });
 
@@ -68,11 +68,12 @@ $factory->define(App\Models\Brand::class, function (Faker $faker) {
 $factory->define(App\Models\Module::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'brand_id' =>  rand(1,9) ,
+        'brand_id' =>  rand(1,2) ,
     ];
 });
 
 $factory->define(App\Models\Product::class, function (Faker $faker) {
+    $typeArray = ['تكيفيات','مراوح','فلتر'];
     return [
         'name' => $faker->name,
         'en_name'=> $faker->name,
@@ -80,7 +81,7 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
         'price'=> rand(10000,20000),
         'color'=> $faker->name,
         'description'=>$faker->text,
-        'type'=> $faker->name,
+        'type'=> $faker->randomElement($typeArray),
         'capacity'=> $faker->name,
         'control'=> $faker->name,
         'technology'=> $faker->name,
@@ -88,8 +89,8 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
         'shape'=> $faker->name,
         'characteristic'=> $faker->name,
         'guarantee'=> $faker->name,
-        'brand_id' =>  rand(1,9) ,
-        'module_id' =>  rand(1,9) ,
+        'brand_id' =>  rand(1,2) ,
+        'module_id' =>  rand(1,2) ,
     ];
 });
 
@@ -98,8 +99,8 @@ $factory->define(App\Models\Offer::class, function (Faker $faker) {
         'title' => $faker->name,
         'image' => "offer.jpg",
         'price' => rand(10000,20000),
-        'discount'=>rand(1,99),
-        'product_id' =>  rand(1,9) ,
+        'discount'=>rand(1,2),
+        'product_id' =>  rand(1,2) ,
     ];
 });
 

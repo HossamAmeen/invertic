@@ -2,30 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\APIResponseTrait;
-use App\Models\{Inquiry,Article,Product,Configration ,Brand, Complaint , Team};
+use App\Models\{Inquiry,Article,Product,Configration ,Brand, Complaint , Offer};
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     use APIResponseTrait;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-
-
-     public function request(Request $request)
+    public function request(Request $request)
      {
         Inquiry::create($request->all());
         return $this->APIResponse(null, null, 200);
@@ -52,6 +35,7 @@ class HomeController extends Controller
         if($product_id != null)
         {
             $data = Product::with('offer')->find($product_id);
+            $data['related_products'] = $this->relatedProducts($data); 
             if(!isset($data)){
                 return $this->APIResponse(null, "هذا المنتج غير موجود", 404);
             }
@@ -60,8 +44,8 @@ class HomeController extends Controller
         else
         {
             $data = Product::with('offer')->orderBy('id', 'DESC');
+            // $offers = Offer::where()
             $data = $this->filter($data);
-            // return $data->get() ;
             $data = $data->get();
             return $this->APIResponse($data, null, 200);
         }
@@ -86,6 +70,22 @@ class HomeController extends Controller
         ]);
         return $this->APIResponse(null, null, 200);
     }
+    public function offers()
+    {
+        $offers =Offer::get(['product_id']);
+        $products= Product::with('offer')->whereIn('id',$offers->toArray())->get();
+        return $this->APIResponse($products, null, 200);
+    }
+
+    public function relatedProducts($product)
+    {
+        $products = Product::where('id','!=',$product->id)
+                            ->where('type' , $product->type)
+                            ->get()->take(4);
+        return $products;
+    }
+    
+    
     public function filter($row)
     {
 
@@ -118,11 +118,37 @@ class HomeController extends Controller
             $row =$row->where('guarantee' ,'like','%'. request('guarantee').'%');
         }
 
-        if(request('min_price') != null){
-            $row =$row->where('price' ,'>=', request('min_price'));
+        if(request('min_price') != null && request('max_price') != null){
+              
+                $row =$row->WhereHas('offer', function($q)
+                {
+                
+                    $q->whereBetween('price', [request('min_price') ,  request('min_price')] );
+                });
+                $row =$row->orWhereBetween('price', [request('min_price') ,  request('min_price')] );
+
         }
-        if(request('max_price') != null){
-            $row =$row->where('price' ,'<=', request('max_price'));
+        
+        if(request('min_price') != null && request('max_price') == null ){
+            
+            $row =$row->WhereHas('offer', function($q)
+                {
+                  
+                    $q->where('price', '>=', request('min_price'));
+                });
+            $row =$row->orWhere('price' ,'>=', request('min_price'));
+        }
+
+        if(request('max_price') != null && request('min_price') == null ){
+
+            $row =$row->WhereHas('offer', function($q)
+                {
+                  
+                    $q->where('price', '<=', request('max_price'));
+                });
+            $row =$row->orWhere('price' ,'<=', request('max_price'));
+
+            // $row =$row->where('price' ,'<=', request('max_price'));
         }
         if(request('brand_id') != null){
             $row =$row->where('brand_id' ,request('brand_id'));
