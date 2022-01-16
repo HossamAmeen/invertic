@@ -36,6 +36,7 @@ class HomeController extends Controller
         {
             $data = Product::with('offer')->find($product_id);
             $data['related_products'] = $this->relatedProducts($data); 
+            return $data['related_products'];
             if(!isset($data)){
                 return $this->APIResponse(null, "هذا المنتج غير موجود", 404);
             }
@@ -44,7 +45,6 @@ class HomeController extends Controller
         else
         {
             $data = Product::with('offer')->orderBy('id', 'DESC');
-            // $offers = Offer::where()
             $data = $this->filter($data);
             $data = $data->get();
             return $this->APIResponse($data, null, 200);
@@ -79,10 +79,16 @@ class HomeController extends Controller
 
     public function relatedProducts($product)
     {
-        $products = Product::where('id','!=',$product->id)
-                            ->where('type' , $product->type)
-                            ->get()->take(4);
-        return $products;
+        $cheaperItem = Product::where('id','!=',$product->id)
+                            ->where('price' ,'<=', $product->price)
+                            ->orderBy('price')
+                            ->get()->take(2);
+        $moreItem = Product::where('id','!=',$product->id)
+                            ->where('price' ,'>=', $product->price)
+                            ->orderBy('price')
+                            ->get()->take(2);
+       $data = $cheaperItem->merge($moreItem); 
+        return $data;
     }
     
     
@@ -92,24 +98,31 @@ class HomeController extends Controller
         if(request('color') != null){
          $row =$row->where('color' ,'like','%'. request('color').'%');
         }
+
         if(request('type') != null){
             $row =$row->where('type' ,'like','%'. request('type').'%');
            }
+
         if(request('capacity') != null){
          $row =$row->where('capacity' ,'like','%'. request('capacity').'%');
         }
+
         if(request('control') != null){
             $row =$row->where('control' ,'like','%'. request('control').'%');
            }
+
         if(request('technology') != null){
          $row =$row->where('technology' ,'like','%'. request('technology').'%');
         }
+
         if(request('micanthim') != null){
             $row =$row->where('micanthim' ,'like','%'. request('micanthim').'%');
         }
+
         if(request('shape') != null){
             $row =$row->where('shape' ,'like','%'. request('shape').'%');
         }
+
         if(request('characteristic') != null){
             $row =$row->where('characteristic' ,'like','%'. request('characteristic').'%');
         }
@@ -131,29 +144,34 @@ class HomeController extends Controller
         
         if(request('min_price') != null && request('max_price') == null ){
             
-            $row =$row->WhereHas('offer', function($q)
-                {
+            // $row =$row->WhereHas('offer', function($q)
+            //     {
                   
-                    $q->where('price', '>=', request('min_price'));
+            //         $q->where('price', '>=', request('min_price'));
+            //     })->orWhere('price' ,'>=', request('min_price'));
+                
+            $row->where(function ($query) {
+                    $query->WhereHas('offer', function($q){
+                        $q->where('price', '>=', request('min_price'));
+                    })->orWhere('price' ,'>=', request('min_price'));
                 });
-            $row =$row->orWhere('price' ,'>=', request('min_price'));
+            // $row =$row->orWhere('price' ,'>=', request('min_price'));
         }
 
         if(request('max_price') != null && request('min_price') == null ){
 
-            $row =$row->WhereHas('offer', function($q)
-                {
-                  
+            $row->where(function ($query) {
+                $query->WhereHas('offer', function($q){
                     $q->where('price', '<=', request('max_price'));
-                });
-            $row =$row->orWhere('price' ,'<=', request('max_price'));
-
+                })->orWhere('price' ,'<=', request('max_price'));
+            });
             // $row =$row->where('price' ,'<=', request('max_price'));
         }
 
         if(request('brand_id') != null){
             $row =$row->where('brand_id' ,request('brand_id'));
         }
+
         if(request('module_id') != null){
             $row =$row->where('module_id' , request('module_id'));
         }

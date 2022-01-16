@@ -15,9 +15,9 @@ class CreateInquiriesTable extends Migration
     {
         Schema::create('inquiries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('phone');
-            $table->text('address');
+            $table->text('address')->nullable();
             $table->string('status')->nullable();
 
             $table->bigInteger('product_id')->unsigned()->nullable();
