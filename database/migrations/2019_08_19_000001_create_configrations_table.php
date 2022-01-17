@@ -20,6 +20,8 @@ class CreateConfigrationsTable extends Migration
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('phone2')->nullable();
+            $table->string('phone3')->nullable();
+            $table->string('phone4')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
