@@ -54,7 +54,7 @@ class ProductController extends CRUDController
             ];
             $offer = Offer::where('product_id',$row->id)->first();
             if(isset($offer)){
-                $offer::update($offerRequest);
+                $offer->update($offerRequest);
             }
             else
                 $offer = Offer::create($offerRequest);

@@ -27,6 +27,11 @@ class CreateConfigrationsTable extends Migration
             $table->string('instagram')->nullable();
             $table->string('whatsapp')->nullable();
             
+            $table->string('how_choice_product_image')->nullable();
+            $table->string('offers_image')->nullable();
+            $table->string('all_products_image')->nullable();
+           
+
             $table->text('description')->nullable();
             $table->text('about')->nullable();
             $table->string('school_vision')->nullable();
