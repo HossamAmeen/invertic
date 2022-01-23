@@ -10,7 +10,7 @@ class Article extends Model
 
     
     protected $fillable = [
-        'title' , 'description', 'en_title' , 'en_description', 'image' , "user_id"
+        'title' , 'description', 'en_title' , 'en_description', 'image' ,'video', "user_id"
     ];
     protected $hidden = [
         'user_id',"created_at" ,'en_title','en_description' ,'updated_at','deleted_at' 

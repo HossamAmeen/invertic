@@ -22,6 +22,7 @@ class CreateArticlesTable extends Migration
             $table->date('date')->default(date("Y-m-d"));
 
             $table->string('image')->default('https://alahsan-private-schools.com/images/news.jpg');
+            $table->string('video')->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->softDeletes();
