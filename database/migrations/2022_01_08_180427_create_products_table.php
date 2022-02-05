@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('color');
             $table->string('type');
             $table->string('description');
+            $table->integer('order_item')->nullable(); 
             
             $table->string('capacity')->nullable();
             $table->string('control')->nullable();
@@ -30,6 +31,7 @@ class CreateProductsTable extends Migration
             $table->string('shape')->nullable();
             $table->string('characteristic')->nullable();
             $table->string('guarantee')->nullable();
+            $table->string('energy_efficiency')->nullable();
 
             $table->bigInteger('brand_id')->unsigned()->nullable();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');

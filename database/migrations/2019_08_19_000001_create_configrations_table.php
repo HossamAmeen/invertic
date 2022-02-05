@@ -39,7 +39,6 @@ class CreateConfigrationsTable extends Migration
             $table->text('join_us2')->nullable();
             $table->text('value')->nullable();
             $table->string('image')->nullable();
-            // $table->text('en_about')->nullable();
             $table->text('terms_conditions')->nullable();
             $table->text('privacy_policy')->nullable();
             $table->string('video')->nullable();
