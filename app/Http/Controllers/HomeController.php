@@ -46,7 +46,7 @@ class HomeController extends Controller
         {
             $data = Product::with('offer');
             $data = $this->filter($data);
-            $data = $data->orderBy('id')->get();
+            $data = $data->orderBy('order_item')->get();
             return $this->APIResponse($data, null, 200);
         }
        

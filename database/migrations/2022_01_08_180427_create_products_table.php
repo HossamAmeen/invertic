@@ -19,10 +19,11 @@ class CreateProductsTable extends Migration
             $table->string('en_name'); 
             $table->string('image');
             $table->double('price');
+            $table->double('price_after_dicount')->default(0);
             $table->string('color');
             $table->string('type');
             $table->string('description');
-            $table->integer('order_item')->nullable(); 
+            $table->integer('order_item')->default(10); 
             
             $table->string('capacity')->nullable();
             $table->string('control')->nullable();
