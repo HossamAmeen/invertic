@@ -101,8 +101,10 @@ class HomeController extends Controller
 
         if(request('type') != null){
             $row =$row->where('type' ,'like','%'. request('type').'%');
-           }
-
+        }
+        if(request('energy_efficiency') != null){
+            $row =$row->where('energy_efficiency' ,'like','%'. request('type').'%');
+        }
         if(request('capacity') != null){
          $row =$row->where('capacity' ,'like','%'. request('capacity').'%');
         }
