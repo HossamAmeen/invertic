@@ -17,6 +17,7 @@ class CreateBrandsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
+            $table->integer('order_item')->default(10); 
             $table->timestamps();
             $table->softDeletes();
         });

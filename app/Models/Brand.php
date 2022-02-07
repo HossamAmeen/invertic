@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
      use SoftDeletes;
-      protected $fillable = ['name','image'];
+      protected $fillable = ['name','order_item','image'];
      protected $hidden = [
          'user_id',"created_at" , 'updated_at','deleted_at' 
     ];

@@ -15,7 +15,7 @@ class HomeController extends Controller
      }
     public function brands()
     {
-        $data = Brand::with('modules')->orderBy('id', 'DESC')->get();
+        $data = Brand::with('modules')->orderBy('order_item')->get();
         return $this->APIResponse($data, null, 200);
     }
     public function articles($id = null )
