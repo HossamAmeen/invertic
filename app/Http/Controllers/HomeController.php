@@ -36,7 +36,6 @@ class HomeController extends Controller
         {
             $data = Product::with('offer')->find($product_id);
             $data['related_products'] = $this->relatedProducts($data); 
-            return $data['related_products'];
             if(!isset($data)){
                 return $this->APIResponse(null, "هذا المنتج غير موجود", 404);
             }
@@ -49,7 +48,6 @@ class HomeController extends Controller
             $data = $data->orderBy('order_item')->get();
             return $this->APIResponse($data, null, 200);
         }
-       
         return $this->APIResponse($data, null, 200);
     }
     public function configrations()
@@ -103,7 +101,7 @@ class HomeController extends Controller
             $row =$row->where('type' ,'like','%'. request('type').'%');
         }
         if(request('energy_efficiency') != null){
-            $row =$row->where('energy_efficiency' ,'like','%'. request('type').'%');
+            $row =$row->where('energy_efficiency' ,'like','%'. request('energy_efficiency').'%');
         }
         if(request('capacity') != null){
          $row =$row->where('capacity' ,'like','%'. request('capacity').'%');
