@@ -77,11 +77,13 @@ class HomeController extends Controller
 
     public function relatedProducts($product)
     {
-        $cheaperItem = Product::where('id','!=',$product->id)
+        $cheaperItem = Product::with('offer')
+                            ->where('id','!=',$product->id)
                             ->where('price' ,'<=', $product->price)
                             ->orderBy('price')
                             ->get()->take(2);
-        $moreItem = Product::where('id','!=',$product->id)
+        $moreItem = Product::with('offer')
+                            ->where('id','!=',$product->id)
                             ->where('price' ,'>=', $product->price)
                             ->orderBy('price')
                             ->get()->take(2);
