@@ -80,7 +80,7 @@ class HomeController extends Controller
         $cheaperItem = Product::with('offer')
                             ->where('id','!=',$product->id)
                             ->where('price' ,'<=', $product->price)
-                            ->orderBy('price')
+                            ->orderBy('price', "DESC")
                             ->get()->take(2);
         $moreItem = Product::with('offer')
                             ->where('id','!=',$product->id)
